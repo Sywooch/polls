@@ -28,7 +28,14 @@ $this->title = 'Вход';
             <?= $form->field($loginForm, 'email') ?>
             <?= $form->field($loginForm, 'password')->passwordInput() ?>
             <?= $form->field($loginForm, 'rememberMe')->checkbox() ?>
-            <div class="form-group row">
+
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <?= Html::a('Забыли пароль?', ['site/request-password-reset']) ?>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
                     <?= Html::submitButton('Вход', ['class' => 'btn btn-primary']) ?>
                 </div>

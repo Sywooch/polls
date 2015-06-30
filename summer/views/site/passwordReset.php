@@ -2,8 +2,9 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Регистрация';
+$this->title = 'Сброс пароля';
 ?>
+
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="well well-sm">
@@ -25,11 +26,10 @@ $this->title = 'Регистрация';
                 ]
             ]) ?>
 
-            <?= $form->field($signupModel, 'email') ?>
-            <?= $form->field($signupModel, 'password')->passwordInput() ?>
+            <?= $form->field($passwordResetForm, 'password')->passwordInput()->hint('Введите новый пароль.') ?>
             <div class="form-group row">
                 <div class="col-md-10 col-md-offset-2">
-                    <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton('Сбросить пароль', ['class' => 'btn btn-success']) ?>
                 </div>
             </div>
 

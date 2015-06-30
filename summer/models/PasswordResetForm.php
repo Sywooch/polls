@@ -5,7 +5,7 @@ use Yii;
 use yii\base\InvalidParamException;
 use yii\base\Model;
 
-class ResetPasswordForm extends Model
+class PasswordResetForm extends Model
 {
     public $password;
 
@@ -64,7 +64,7 @@ class ResetPasswordForm extends Model
 
         if ($user->save(false)) {
             Yii::$app->getUser()->login($user);
-            
+
             return true;
         } else {
             return false;
