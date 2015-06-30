@@ -3,10 +3,15 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'id' => 'basic',
+    'id' => 'summer',
+    'name' => 'Летняя практика 2015 - Сервис голосований',
+    'language' => 'ru',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+        'urlManager' => [
+
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'CsB-jN1jIoElRvxDuRfKlXdYftzljJif',
@@ -37,7 +42,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'db' => require(__DIR__ . '/db.php')
     ],
     'params' => $params,
 ];

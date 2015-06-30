@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Вход';
+$this->title = 'Регистрация';
 ?>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
@@ -25,12 +25,11 @@ $this->title = 'Вход';
                 ]
             ]) ?>
 
-            <?= $form->field($loginForm, 'email') ?>
-            <?= $form->field($loginForm, 'password')->passwordInput() ?>
-            <?= $form->field($loginForm, 'rememberMe')->checkbox() ?>
+            <?= $form->field($signupModel, 'email') ?>
+            <?= $form->field($signupModel, 'password')->passwordInput() ?>
             <div class="form-group row">
                 <div class="col-md-10 col-md-offset-2">
-                    <?= Html::submitButton('Вход', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
 
