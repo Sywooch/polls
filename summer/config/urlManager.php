@@ -12,6 +12,11 @@ return [
         'password-reset' => 'site/password-reset',
         'about' => 'site/about',
         'contact' => 'site/contact',
-        'captcha' => 'site/captcha'
+        'captcha' => 'site/captcha',
+        'poll/my-polls' => 'poll/index',
+        'poll/create' => 'poll/create',
+        'poll/<id:\d+>/delete' => 'poll/delete',
+        'poll/<id:\d+>' => 'poll/view',
+        'poll/<id:\d+>/vote' => 'poll/vote'
     ]
 ];
