@@ -52,9 +52,9 @@ abstract class PollVote extends Model
         return $this->poll->title;
     }
 
-    public function getType()
+    public function getId()
     {
-        return $this->poll->type;
+        return $this->poll->id;
     }
 
     public function getFormattedOptions()

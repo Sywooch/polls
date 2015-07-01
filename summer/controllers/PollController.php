@@ -6,6 +6,7 @@ use app\models\Poll;
 use app\models\PollOption;
 use app\models\PollVote;
 use app\models\PollSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -80,7 +81,10 @@ class PollController extends Controller
 
     public function actionView($id)
     {
-        return $this->render('view', ['poll' => $this->findPoll($id)]);
+        $poll = $this->findPoll($id);
+        $maxPeopleCount = max(ArrayHelper::getColumn($poll->pollOptions, 'people_count'));
+
+        return $this->render('view', ['poll' => $poll, 'maxPeopleCount' => $maxPeopleCount]);
     }
 
     public function actionVote($id)

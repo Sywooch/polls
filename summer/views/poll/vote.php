@@ -1,26 +1,33 @@
 <?php
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use app\models\PollVoteCheckbox;
 
-$this->title = 'Опрос: ' . $pollVote->title;
+$this->title = 'Опрос "' . $pollVote->title . '""';
 ?>
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <h1><?= Html::encode($pollVote->title) ?></h1>
+        <div class="well well-sm">
+            <h1 class="text-center"><?= Html::encode($pollVote->title) ?></h1>
 
-        <?php $form = ActiveForm::begin(); ?>
+            <hr>
 
-        <?php if ($pollVote instanceof PollVoteCheckbox): ?>
-            <?= $form->field($pollVote, 'voteResults')->checkboxList($pollVote->formattedOptions) ?>
-        <?php else: ?>
-            <?= $form->field($pollVote, 'voteResults')->radioList($pollVote->formattedOptions) ?>
-        <?php endif ?>
+            <?php $form = ActiveForm::begin() ?>
 
-        <div class="form-group">
-            <?= Html::submitButton('Проголосовать', ['class' => 'btn btn-success']) ?>
+            <?php if ($pollVote instanceof PollVoteCheckbox): ?>
+                <?= $form->field($pollVote, 'voteResults')->checkboxList($pollVote->formattedOptions)->label(false) ?>
+            <?php else: ?>
+                <?= $form->field($pollVote, 'voteResults')->radioList($pollVote->formattedOptions)->label(false) ?>
+            <?php endif ?>
+
+            <hr>
+
+            <div class="form-group">
+                <?= Html::submitButton('Проголосовать', ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Результаты', ['poll/view', 'id' => $pollVote->id], ['class' => 'btn btn-info']) ?>
+            </div>
+
+            <?php ActiveForm::end(); ?>
         </div>
-
-        <?php ActiveForm::end(); ?>
     </div>
 </div>
