@@ -9,7 +9,6 @@ use app\models\PollSearch;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\web\ServerErrorHttpException;
 use yii\filters\VerbFilter;
 use yii\base\Model;
 
@@ -84,23 +83,25 @@ class PollController extends Controller
     public function actionView($id)
     {
         $poll = $this->findPoll($id);
-
+        $isValidUser = PollVote::getInstance($poll)->validateUser();
         $maxPeopleCount = max(ArrayHelper::getColumn($poll->pollOptions, 'people_count'));
 
-        return $this->render('view', ['poll' => $poll, 'maxPeopleCount' => $maxPeopleCount]);
+        return $this->render('view', ['poll' => $poll, 'maxPeopleCount' => $maxPeopleCount, 'isValidUser' => $isValidUser]);
     }
 
     public function actionVote($id)
     {
         $pollVote = PollVote::getInstance($this->findPoll($id));
 
-        if ($pollVote->load(Yii::$app->request->post()) && $pollVote->validate()) {
-            $pollVote->vote();
+        if ($pollVote->validateUser()) {
+            if ($pollVote->load(Yii::$app->request->post()) && $pollVote->vote()) {
+                return $this->redirect(['view', 'id' => $pollVote->id]);
+            }
 
+            return $this->render('vote', ['pollVote' => $pollVote]);
+        } else {
             return $this->redirect(['view', 'id' => $pollVote->id]);
         }
-
-        return $this->render('vote', ['pollVote' => $pollVote]);
     }
 
     public function actionToggleVisibility($id)

@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\Poll;
 ?>
-<?php $form = ActiveForm::begin(['id' => 'create-poll']); ?>
+<?php $form = ActiveForm::begin(['id' => 'create-poll', 'action' => ['poll/create']]); ?>
 
 <div class="well well-sm">
     <?= $form->field($poll, 'title')->textarea(['rows' => 4]) ?>
@@ -28,7 +28,7 @@ use app\models\Poll;
 
 
 <div class="form-group">
-    <button type="button" class="btn btn-info" id="add-poll-option">Добавить вариант</button>
+    <button type="button" class="btn btn-primary" id="add-poll-option">Добавить вариант</button>
     <?= Html::submitButton('Создать опрос', ['class' => 'btn btn-success']) ?>
 </div>
 

@@ -6,13 +6,16 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\SignUpForm;
+use app\models\SignupForm;
 use app\models\LoginForm;
 use yii\web\BadRequestHttpException;
 use yii\base\InvalidParamException;
 use app\models\RequestPasswordResetForm;
 use app\models\PasswordResetForm;
 use app\models\ContactForm;
+use app\models\Poll;
+use app\models\PollOption;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -59,22 +62,45 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        if (Yii::$app->user->isGuest) {
+            $poll = new Poll();
+            $pollOptions = [new PollOption()];
+
+            $signupForm = new SignupForm();
+
+            $usersCount = User::find()->count();
+            $pollsCount = Poll::find()->count();
+
+
+            return $this->render('indexGuest', [
+                'poll' => $poll,
+                'pollOptions' => $pollOptions,
+                'signupForm' => $signupForm,
+                'usersCount' => $usersCount,
+                'pollsCount' => $pollsCount
+            ]);
+        } else {
+            $polls = Poll::find()->where(['user_id' => Yii::$app->user->identity->id])->orderBy('created_at')->all();
+
+            return $this->render('indexUser', [
+                'polls' => $polls
+            ]);
+        }
     }
 
-    public function actionSignUp()
+    public function actionSignup()
     {
-        $signUpForm = new SignUpForm();
+        $signupForm = new SignupForm();
 
-        if ($signUpForm->load(Yii::$app->request->post())) {
-            if ($user = $signUpForm->signup()) {
+        if ($signupForm->load(Yii::$app->request->post())) {
+            if ($user = $signupForm->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
                 }
             }
         }
 
-        return $this->render('sign-up', ['signUpForm' => $signUpForm]);
+        return $this->render('signup', ['signupForm' => $signupForm]);
     }
 
     public function actionLogin()

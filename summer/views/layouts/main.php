@@ -39,7 +39,7 @@ AppAsset::register($this);
             ];
 
             if (Yii::$app->user->isGuest) {
-                $navItems[] = ['label' => 'Регистрация', 'url' => ['/site/sign-up']];
+                $navItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
                 $navItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
             } else {
                 $navItems[] = ['label' => 'Выход (' . Yii::$app->user->identity->email . ')',

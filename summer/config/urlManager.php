@@ -5,7 +5,7 @@ return [
     'showScriptName' => false,
     'rules' => [
         '' => 'site/index',
-        'sign-up' => 'site/sign-up',
+        'signup' => 'site/signup',
         'login' => 'site/login',
         'logout' => 'site/logout',
         'request-password-reset' => 'site/request-password-reset',

@@ -24,7 +24,7 @@ class PollVoteRadio extends PollVote
         }
     }
 
-    public function vote()
+    protected function doVote()
     {
         PollOption::findOne($this->voteResults)->updateCounters(['people_count' => 1]);
     }

@@ -27,7 +27,7 @@ class PollVoteCheckbox extends PollVote
         }
     }
 
-    public function vote()
+    protected function doVote()
     {
         PollOption::updateAllCounters(['people_count' => 1], ['in', 'id', $this->voteResults]);
     }

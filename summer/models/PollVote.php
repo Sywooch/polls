@@ -11,7 +11,6 @@ abstract class PollVote extends Model
      * @var array|string
      */
     public $voteResults;
-    public $pollInfo;
 
     protected $poll;
 
@@ -37,8 +36,7 @@ abstract class PollVote extends Model
     public function rules()
     {
         return [
-            ['voteResults', 'required', 'message' => 'Выберите хотя бы один вариант.'],
-            ['pollInfo', 'safe']
+            ['voteResults', 'required', 'message' => 'Выберите хотя бы один вариант.']
         ];
     }
 
@@ -74,8 +72,30 @@ abstract class PollVote extends Model
 
     public function validateUser()
     {
-        return $this->pollInfo === '0';
+        return PollIp::findOne(['poll_id' => $this->getId(), 'user_ip' => $_SERVER['REMOTE_ADDR']]) === null;
     }
 
-    abstract public function vote();
+    protected function blacklistUser()
+    {
+        $pollIp = new PollIp();
+
+        $pollIp->poll_id = $this->getId();
+        $pollIp->user_ip = $_SERVER['REMOTE_ADDR'];
+
+        return $pollIp->save();
+    }
+
+    public function vote()
+    {
+        if ($this->validate()) {
+            $this->blacklistUser();
+            $this->doVote();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    abstract protected function doVote();
 }

@@ -32,7 +32,7 @@ $this->title = 'Вход';
             ]) ?>
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
-                    <?= Html::submitButton('Вход', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton('Войти', ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
 

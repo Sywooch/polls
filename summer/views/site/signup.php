@@ -25,11 +25,11 @@ $this->title = 'Регистрация';
                 ]
             ]) ?>
 
-            <?= $form->field($signUpForm, 'email') ?>
-            <?= $form->field($signUpForm, 'password')->passwordInput() ?>
-            <div class="form-group row">
+            <?= $form->field($signupForm, 'email') ?>
+            <?= $form->field($signupForm, 'password')->passwordInput() ?>
+            <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
-                    <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
 

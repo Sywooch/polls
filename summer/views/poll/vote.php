@@ -15,9 +15,7 @@ $this->title = 'Опрос "' . $pollVote->title . '""';
             <?php $form = ActiveForm::begin(['id' => 'vote-poll']) ?>
 
             <?php if ($pollVote instanceof PollVoteCheckbox): ?>
-                <?= $form->field($pollVote, 'voteResults')->checkboxList($pollVote->formattedOptions, ['item' => function($index, $label, $name, $checked, $value) {
-                    return '<div class="checkbox">' . Html::checkbox($name, $checked, ['label' => $label, 'value' => $value, 'disabled' => 'disabled']) . '</div>';
-                }])->label(false) ?>
+                <?= $form->field($pollVote, 'voteResults')->checkboxList($pollVote->formattedOptions)->label(false) ?>
             <?php else: ?>
                 <?= $form->field($pollVote, 'voteResults')->radioList($pollVote->formattedOptions)->label(false) ?>
             <?php endif ?>
