@@ -9,6 +9,7 @@ use app\models\PollSearch;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
 use yii\filters\VerbFilter;
 use yii\base\Model;
 
@@ -20,7 +21,8 @@ class PollController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post']
+                    'delete' => ['post'],
+                    'toggle-visibility' => ['post']
                 ]
             ]
         ];
@@ -82,6 +84,7 @@ class PollController extends Controller
     public function actionView($id)
     {
         $poll = $this->findPoll($id);
+
         $maxPeopleCount = max(ArrayHelper::getColumn($poll->pollOptions, 'people_count'));
 
         return $this->render('view', ['poll' => $poll, 'maxPeopleCount' => $maxPeopleCount]);
@@ -93,9 +96,20 @@ class PollController extends Controller
 
         if ($pollVote->load(Yii::$app->request->post()) && $pollVote->validate()) {
             $pollVote->vote();
+
+            return $this->redirect(['view', 'id' => $pollVote->id]);
         }
 
         return $this->render('vote', ['pollVote' => $pollVote]);
+    }
+
+    public function actionToggleVisibility($id)
+    {
+        $poll = $this->findPoll($id);
+        $poll->toggleVisibility();
+        $poll->save();
+
+        return $this->redirect(['view', 'id' => $poll->id]);
     }
 
     protected function findPoll($id)

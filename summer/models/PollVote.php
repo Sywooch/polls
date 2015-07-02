@@ -11,6 +11,7 @@ abstract class PollVote extends Model
      * @var array|string
      */
     public $voteResults;
+    public $pollInfo;
 
     protected $poll;
 
@@ -36,7 +37,8 @@ abstract class PollVote extends Model
     public function rules()
     {
         return [
-            ['voteResults', 'required', 'message' => 'Выберите хотя бы один вариант.']
+            ['voteResults', 'required', 'message' => 'Выберите хотя бы один вариант.'],
+            ['pollInfo', 'safe']
         ];
     }
 
@@ -68,6 +70,11 @@ abstract class PollVote extends Model
 
 
         return $formattedOptions;
+    }
+
+    public function validateUser()
+    {
+        return $this->pollInfo === '0';
     }
 
     abstract public function vote();

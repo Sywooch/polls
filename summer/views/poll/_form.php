@@ -7,11 +7,15 @@ use app\models\Poll;
 
 <div class="well well-sm">
     <?= $form->field($poll, 'title')->textarea(['rows' => 4]) ?>
+
     <?= $form->field($poll, 'type')->dropDownList([
         POLL::TYPE_CHECKBOX => 'Выбор нескольких вариантов',
         POLL::TYPE_RADIO => 'Выбор одного варианта'
     ]) ?>
+
+    <?= $form->field($poll, 'is_results_visible')->dropDownList(['Видны только вам', 'Видны всем']) ?>
 </div>
+
 
 <div class="poll-options">
     <?php foreach ($pollOptions as $index => $pollOption): ?>
@@ -21,6 +25,7 @@ use app\models\Poll;
         ])->textInput(['placeholder' => $pollOption->getAttributeLabel('name')])->label(false) ?>
     <?php endforeach ?>
 </div>
+
 
 <div class="form-group">
     <button type="button" class="btn btn-info" id="add-poll-option">Добавить вариант</button>

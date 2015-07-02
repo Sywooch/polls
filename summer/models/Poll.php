@@ -26,17 +26,25 @@ class Poll extends ActiveRecord
     {
         return [
             'title' => 'Текст опроса',
-            'type' => 'Тип опроса'
+            'type' => 'Тип опроса',
+            'is_results_visible' => 'Видимость результатов'
         ];
     }
 
     public function rules()
     {
         return [
-            [['title', 'type'], 'required'],
+            [['title', 'type', 'is_results_visible'], 'required'],
+            ['title', 'trim'],
             ['title', 'string', 'max' => 255],
-            ['type', 'in', 'range' => [static::TYPE_CHECKBOX, static::TYPE_RADIO]]
+            ['type', 'in', 'range' => [static::TYPE_CHECKBOX, static::TYPE_RADIO]],
+            ['is_results_visible', 'boolean']
         ];
+    }
+
+    public function toggleVisibility()
+    {
+        $this->is_results_visible = $this->is_results_visible ? 0 : 1;
     }
 
     public function getPollOptions()

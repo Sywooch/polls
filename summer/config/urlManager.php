@@ -17,6 +17,7 @@ return [
         'poll/create' => 'poll/create',
         'poll/<id:\d+>/delete' => 'poll/delete',
         'poll/<id:\d+>' => 'poll/view',
-        'poll/<id:\d+>/vote' => 'poll/vote'
+        'poll/<id:\d+>/vote' => 'poll/vote',
+        'poll/<id:\d+>/toggle-visibility' => 'poll/toggle-visibility'
     ]
 ];
