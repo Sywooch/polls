@@ -16,6 +16,7 @@ use app\models\ContactForm;
 use app\models\Poll;
 use app\models\PollOption;
 use app\models\User;
+use app\models\PollSearch;
 
 class SiteController extends Controller
 {
@@ -62,15 +63,14 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        $usersCount = User::find()->count();
+        $pollsCount = Poll::find()->count();
+
         if (Yii::$app->user->isGuest) {
             $poll = new Poll();
             $pollOptions = [new PollOption()];
 
             $signupForm = new SignupForm();
-
-            $usersCount = User::find()->count();
-            $pollsCount = Poll::find()->count();
-
 
             return $this->render('indexGuest', [
                 'poll' => $poll,
@@ -80,10 +80,19 @@ class SiteController extends Controller
                 'pollsCount' => $pollsCount
             ]);
         } else {
-            $polls = Poll::find()->where(['user_id' => Yii::$app->user->identity->id])->orderBy('created_at')->all();
+            $pollSearch = new PollSearch();
+            $pollsProvider = $pollSearch->search(Yii::$app->request->queryParams, ['user_id' => Yii::$app->user->identity->id]);
+
+            $userPollsCount = Poll::find()->where(['user_id' => Yii::$app->user->identity->id])->count();
 
             return $this->render('indexUser', [
-                'polls' => $polls
+                'pollSearch' => $pollSearch,
+                'polls' => $pollsProvider->getModels(),
+                'sort' => $pollsProvider->sort,
+                'pagination' => $pollsProvider->pagination,
+                'usersCount' => $usersCount,
+                'pollsCount' => $pollsCount,
+                'userPollsCount' => $userPollsCount
             ]);
         }
     }

@@ -62,3 +62,16 @@ a.desc:after {
     display: inline;
     content: ' *';
 }
+
+
+
+/* Common */
+
+a.list-group-item.desc, a.list-group-item.asc {
+    color:#31708f;
+    background-color:#d9edf7;
+}
+
+.poll-title, .poll-option-name {
+    word-wrap: break-word;
+}

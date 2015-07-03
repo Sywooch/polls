@@ -13,7 +13,7 @@ class m150630_133849_create_poll_table extends Migration
             'type' => Schema::TYPE_INTEGER . ' NOT NULL',
             'is_results_visible' => Schema::TYPE_INTEGER . ' NOT NULL',
             'people_count' => Schema::TYPE_INTEGER . ' NOT NULL DEFAULT 0',
-            'created_at' => Schema::TYPE_TIMESTAMP . ' NOT NULL',
+            'created_at' => Schema::TYPE_TIMESTAMP . ' DEFAULT CURRENT_TIMESTAMP NOT NULL',
             'FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE'
         ], 'Engine=InnoDB CHARACTER SET utf8 COLLATE utf8_unicode_ci');
     }

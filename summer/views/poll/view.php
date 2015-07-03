@@ -6,7 +6,7 @@ $this->title = 'Результаты опроса "' . $poll->title . '"';
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="well well-sm" id="vote-poll-results">
-            <h1 class="text-center"><?= Html::encode($poll->title) ?></h1>
+            <h3 class="text-center poll-title"><?= Html::encode($poll->title) ?></h3>
 
             <hr>
 
@@ -14,7 +14,7 @@ $this->title = 'Результаты опроса "' . $poll->title . '"';
                 <?php foreach ($poll->pollOptions as $option): ?>
                     <li class="list-group-item<?= ($option->people_count === $maxPeopleCount && $option->people_count !== 0) ? ' list-group-item-success' : '' ?>">
                         <span class="badge"><?= $poll->is_results_visible ? $option->people_count : '?' ?></span>
-                        <?= $option->name ?>
+                        <span class="poll-option-name"><?= Html::encode($option->name) ?></span>
                     </li>
                 <?php endforeach ?>
             </ul>

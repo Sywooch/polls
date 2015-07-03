@@ -10,24 +10,26 @@ class Poll extends ActiveRecord
     const TYPE_CHECKBOX = 0;
     const TYPE_RADIO = 1;
 
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::className(),
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => false,
-                'value' => new Expression('NOW()'),
-            ]
-        ];
-    }
+//    public function behaviors()
+//    {
+//        return [
+//            [
+//                'class' => TimestampBehavior::className(),
+//                'createdAtAttribute' => 'created_at',
+//                'updatedAtAttribute' => false,
+//                'value' => new Expression('NOW()'),
+//            ]
+//        ];
+//    }
 
     public function attributeLabels()
     {
         return [
             'title' => 'Текст опроса',
             'type' => 'Тип опроса',
-            'is_results_visible' => 'Видимость результатов'
+            'is_results_visible' => 'Видимость результатов',
+            'people_count' => 'Количество проголосовавших',
+            'created_at' => 'Дата создания'
         ];
     }
 
@@ -36,7 +38,7 @@ class Poll extends ActiveRecord
         return [
             [['title', 'type', 'is_results_visible'], 'required'],
             ['title', 'trim'],
-            ['title', 'string', 'max' => 255],
+            ['title', 'string', 'max' => 25],
             ['type', 'in', 'range' => [static::TYPE_CHECKBOX, static::TYPE_RADIO]],
             ['is_results_visible', 'boolean']
         ];

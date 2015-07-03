@@ -5,7 +5,6 @@ use Yii;
 use app\models\Poll;
 use app\models\PollOption;
 use app\models\PollVote;
-use app\models\PollSearch;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -25,18 +24,6 @@ class PollController extends Controller
                 ]
             ]
         ];
-    }
-
-
-    public function actionIndex()
-    {
-        $searchModel = new PollSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 
     public function actionCreate()
@@ -77,7 +64,7 @@ class PollController extends Controller
     {
         $this->findPoll($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['site/index']);
     }
 
     public function actionView($id)

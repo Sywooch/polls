@@ -6,7 +6,7 @@ use app\models\Poll;
 <?php $form = ActiveForm::begin(['id' => 'create-poll', 'action' => ['poll/create']]); ?>
 
 <div class="well well-sm">
-    <?= $form->field($poll, 'title')->textarea(['rows' => 4]) ?>
+    <?= $form->field($poll, 'title')->textInput(['maxlength' => true, 'rows' => 4]) ?>
 
     <?= $form->field($poll, 'type')->dropDownList([
         POLL::TYPE_CHECKBOX => 'Выбор нескольких вариантов',
@@ -22,7 +22,7 @@ use app\models\Poll;
         <?= $form->field($pollOption, "[$index]name", [
             'inputOptions' => ['class' => 'form-control input-sm'],
             'template' => '<div class="input-group">{input}<div class="input-group-btn"><button type="button" class="btn btn-sm btn-default poll-option-drag-btn"><span class="glyphicon glyphicon-resize-vertical"></span></button><button type="button" class="btn btn-sm btn-default pol-option-remove"><span class="glyphicon glyphicon-remove"></span></button></div></div><div class="help-block"></div>'
-        ])->textInput(['placeholder' => $pollOption->getAttributeLabel('name')])->label(false) ?>
+        ])->textInput(['maxlength' => true, 'placeholder' => $pollOption->getAttributeLabel('name')])->label(false) ?>
     <?php endforeach ?>
 </div>
 

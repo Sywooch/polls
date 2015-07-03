@@ -5,7 +5,7 @@ $urlManager = require(__DIR__ . '/urlManager.php');
 
 $config = [
     'id' => 'summer',
-    'name' => 'Летняя практика 2015 - Сервис голосований',
+    'name' => 'Летняя практика - Сервис голосований',
     'language' => 'ru',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],

@@ -91,6 +91,8 @@ abstract class PollVote extends Model
             $this->blacklistUser();
             $this->doVote();
 
+            $this->poll->updateCounters(['people_count' => 1]);
+
             return true;
         } else {
             return false;

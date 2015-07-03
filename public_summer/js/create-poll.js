@@ -15,7 +15,7 @@ $(document).ready(function() {
         var $wrapperFormGroup = $('<div class="form-group field-polloption-' + id + '-name required">').appendTo($pollOptions);
         var $wrapperInputGroup =$('<div class="input-group">').appendTo($wrapperFormGroup);
 
-        $wrapperInputGroup.append('<input type="text" id="polloption-' + id + '-name" class="form-control input-sm" name="PollOption[' + id + '][name]" placeholder="Текст варианта">');
+        $wrapperInputGroup.append('<input type="text" maxlength="45" id="polloption-' + id + '-name" class="form-control input-sm" name="PollOption[' + id + '][name]" placeholder="Текст варианта">');
         $wrapperInputGroup.append('<div class="input-group-btn"><button type="button" class="btn btn-sm btn-default poll-option-drag-btn"><span class="glyphicon glyphicon-resize-vertical"></span></button><button type="button" class="btn btn-sm btn-default pol-option-remove"><span class="glyphicon glyphicon-remove"></span></button></div>');
         $wrapperFormGroup.append('<div class="help-block">');
 
@@ -32,7 +32,7 @@ $(document).ready(function() {
                 yii.validation.string(value, messages, {
                     "message": "Значение «Текст варианта» должно быть строкой.",
                     "max": 60,
-                    "tooLong": "Значение «Текст варианта» должно содержать максимум 60 символа.",
+                    "tooLong": "Значение «Текст варианта» должно содержать максимум 45 символа.",
                     "skipOnEmpty": 1
                 });
             }
@@ -93,7 +93,7 @@ $(document).ready(function() {
                     recalculatePollOptionsIds(ui.item, $endIndex, $direction);
                 }
             }
-        }).disableSelection();
+        });
 
 
         $pollOptions.on('click', '.pol-option-remove', function () {

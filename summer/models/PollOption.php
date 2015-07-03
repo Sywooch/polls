@@ -15,7 +15,7 @@ class PollOption extends ActiveRecord
         return [
             ['name', 'required'],
             ['name', 'trim'],
-            ['name', 'string', 'max' => 60]
+            ['name', 'string', 'max' => 45]
         ];
     }
 
