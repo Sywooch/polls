@@ -10,9 +10,7 @@ $this->title = Yii::$app->name;
         <h1 class="text-center">Создание нового опроса</h1>
 
         <?= Alert::widget([
-            'options' => [
-                'class' => 'alert-info',
-            ],
+            'options' => ['class' => 'alert-info'],
             'body' => 'Вы сможете управлять созданными опросами только после регистрации!',
         ]) ?>
 
@@ -21,7 +19,7 @@ $this->title = Yii::$app->name;
 
 
     <div class="col-md-4">
-        <div class="panel panel-info">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h1 class="panel-title text-center">Быстрая регистрация</h1>
             </div>
@@ -40,7 +38,7 @@ $this->title = Yii::$app->name;
             </div>
         </div>
 
-        <div class="panel panel-info">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <h1 class="panel-title text-center">Статистика сервиса</h1>
             </div>

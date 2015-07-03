@@ -41,35 +41,13 @@ $(document).ready(function() {
         return $wrapperFormGroup;
     }
 
-    function recalculatePollOptionsIds($startElement, startId, $direction) {
-
-        $elementToRecalculate.each(function () {
-            $(this).removeClass(function (index, className) {
-                return (className.match(/field-polloption-\d+-name/g) || []).join(' ');
-            });
-            $(this).addClass('field-polloption-' + startId + '-name');
-
-            var $input = $(this).find('input');
-            $input.attr('id', 'polloption-' + startId + '-name');
-            $input.attr('name', 'PollOption[' + startId + '][name]');
-
-
-            if ($direction === 'to-top') {
-                startId += 1;
-            } else {
-                startId -= 1;
-            }
-
-        });
-    }
-
-
-
 
     var $pollOptions = $('#create-poll').find('.poll-options');
     if ($pollOptions.length !== 0) {
         $pollOptions.sortable({
             handle: '.poll-option-drag-btn',
+            items: '> .form-group',
+            tolerance: 'pointer', //anti-bug with moving to the first and the last positions
             cancel: '',
             axis: 'y',
             containment: 'parent',
@@ -95,11 +73,9 @@ $(document).ready(function() {
             }
         });
 
-
         $pollOptions.on('click', '.pol-option-remove', function () {
             $(this).closest('.form-group').remove();
         });
-
 
         $('#create-poll').on('beforeSubmit', function () {
             var currentId = 0;
@@ -117,7 +93,6 @@ $(document).ready(function() {
                 currentId += 1;
             });
         });
-
 
         $('#add-poll-option').on('click', function () {
             var newPollId = getNewOptionIndex($('#create-poll').html());
