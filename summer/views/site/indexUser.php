@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Alert;
 
 $this->title = Yii::$app->name;
 ?>
@@ -10,23 +11,31 @@ $this->title = Yii::$app->name;
         <?= Html::a('Создать опрос', ['poll/create'], ['class' => 'btn btn-primary pull-right']) ?>
         <h1 class="text-center">Ваши опросы</h1>
 
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <tr>
-                    <th>Название опроса</th>
-                    <th>Количество проголосовавших</th>
-                    <th>Дата создания</th>
-                </tr>
-
-                <?php foreach ($polls as $poll): ?>
+        <?php if (count($polls) !== 0): ?>
+            <div class="table-responsive">
+                <table class="table table-hover">
                     <tr>
-                        <td><?= Html::a(Html::encode($poll->title), ['poll/view', 'id' => $poll->id]) ?></td>
-                        <td><?= Html::encode($poll->people_count) ?></td>
-                        <td><?= Html::encode($poll->created_at) ?></td>
+                        <th>Название опроса</th>
+                        <th>Количество проголосовавших</th>
+                        <th>Дата создания</th>
                     </tr>
-                <?php endforeach ?>
-            </table>
-        </div>
+
+                    <?php foreach ($polls as $poll): ?>
+                        <tr>
+                            <td><?= Html::a(Html::encode($poll->title), ['poll/view', 'id' => $poll->id]) ?></td>
+                            <td><?= Html::encode($poll->people_count) ?></td>
+                            <td><?= Html::encode($poll->created_at) ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </table>
+            </div>
+        <?php else: ?>
+            <?= Alert::widget([
+                'options' => ['class' => 'alert alert-info'],
+                'closeButton' => false,
+                'body' => 'Опросы отсутствуют.'
+            ]) ?>
+        <?php endif ?>
 
         <div class="text-center">
             <?= LinkPager::widget(['pagination' => $pagination]) ?>

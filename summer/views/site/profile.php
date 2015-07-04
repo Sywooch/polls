@@ -1,8 +1,8 @@
 <?php
-use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 
-$this->title = 'Сброс пароля';
+$this->title = 'Изменение профиля';
 ?>
 
 <div class="row">
@@ -26,10 +26,12 @@ $this->title = 'Сброс пароля';
                 ]
             ]) ?>
 
-            <?= $form->field($passwordResetForm, 'password')->passwordInput()->hint('Введите новый пароль.') ?>
+
+            <?= $form->field($profileForm, 'email')->textInput() ?>
+            <?= $form->field($profileForm, 'password')->passwordInput()->hint('Оставьте поле пустым, если не хотите менять ваш пароль.') ?>
             <div class="form-group">
                 <div class="col-sm-10 col-sm-offset-2">
-                    <?= Html::submitButton('Сбросить пароль', ['class' => 'btn btn-success']) ?>
+                    <?= Html::submitButton('Изменить профиль', ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
 

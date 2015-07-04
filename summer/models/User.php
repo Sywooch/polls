@@ -22,9 +22,6 @@ use yii\db\Expression;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
@@ -37,48 +34,30 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'trim']
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function findIdentity($id)
     {
         return static::findOne($id);
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
     public static function findByEmail($email)
     {
         return static::findOne(['email' => $email]);
     }
 
-    /**
-     * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     * @return static|null
-     */
     public static function findByPasswordResetToken($token)
     {
         if (!static::isPasswordResetTokenValid($token)) {
@@ -88,12 +67,6 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(['password_reset_token' => $token]);
     }
 
-    /**
-     * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     * @return boolean
-     */
     public static function isPasswordResetTokenValid($token)
     {
         if (empty($token)) {
@@ -105,36 +78,21 @@ class User extends ActiveRecord implements IdentityInterface
         return $timestamp + $expire >= time();
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getId()
     {
         return $this->getPrimaryKey();
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getAuthKey()
     {
         return $this->auth_key;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
     }
 
-    /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return boolean if password provided is valid for current user
-     */
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password_hash);
@@ -158,17 +116,11 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
-    /**
-     * Generates new password reset token
-     */
     public function generatePasswordResetToken()
     {
         $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
     }
 
-    /**
-     * Removes password reset token
-     */
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;

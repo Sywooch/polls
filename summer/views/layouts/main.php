@@ -42,14 +42,18 @@ AppAsset::register($this);
                 $navItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
                 $navItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
             } else {
-                $navItems[] = ['label' => 'Выход (' . Yii::$app->user->identity->email . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
+                $navItems[] = [
+                    'label' => Html::encode(Yii::$app->user->identity->email),
+                    'items' => [
+                        ['label' => 'Изменить профиль', 'url' => ['/site/profile']],
+                        ['label' => 'Выход', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']]
+                    ]
                 ];
             }
 
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
+                'activateParents' => true,
                 'items' => $navItems
             ]);
             NavBar::end();

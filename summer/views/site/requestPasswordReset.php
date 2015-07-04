@@ -16,9 +16,9 @@ $this->title = 'Сброс пароля';
                 'fieldConfig' => [
                     'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
                     'horizontalCssClasses' => [
-                        'label' => 'col-md-2',
-                        'offset' => 'col-md-offset-2',
-                        'wrapper' => 'col-md-10',
+                        'label' => 'col-sm-2',
+                        'offset' => 'col-sm-offset-2',
+                        'wrapper' => 'col-sm-10',
                         'error' => '',
                         'hint' => '',
                     ]
@@ -26,8 +26,8 @@ $this->title = 'Сброс пароля';
             ]) ?>
 
             <?= $form->field($requestPasswordResetForm, 'email')->hint('Ссылка для сброса пароля будет отправлена на этот адрес.') ?>
-            <div class="form-group row">
-                <div class="col-md-10 col-md-offset-2">
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
                     <?= Html::submitButton('Отправить ссылку для сброса пароля', ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>

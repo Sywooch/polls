@@ -11,6 +11,7 @@ return [
         'request-password-reset' => 'site/request-password-reset',
         'password-reset' => 'site/password-reset',
         'about' => 'site/about',
+        'profile' => 'site/profile',
         'contact' => 'site/contact',
         'captcha' => 'site/captcha',
         'poll/my-polls' => 'poll/index',

@@ -16,9 +16,9 @@ $this->title = 'Вход';
                 'fieldConfig' => [
                     'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
                     'horizontalCssClasses' => [
-                        'label' => 'col-md-2',
-                        'offset' => 'col-md-offset-2',
-                        'wrapper' => 'col-md-10',
+                        'label' => 'col-sm-2',
+                        'offset' => 'col-sm-offset-2',
+                        'wrapper' => 'col-sm-10',
                         'error' => '',
                         'hint' => '',
                     ]
@@ -31,7 +31,7 @@ $this->title = 'Вход';
                 'template' => "{beginWrapper}\n<div class=\"checkbox\">" . Html::a('Забыли пароль?', ['site/request-password-reset'], ['class' => 'pull-right']) . "\n{beginLabel}\n{input}\n{labelTitle}\n{endLabel}\n</div>\n{error}\n{endWrapper}\n{hint}"
             ]) ?>
             <div class="form-group">
-                <div class="col-md-10 col-md-offset-2">
+                <div class="col-sm-10 col-sm-offset-2">
                     <?= Html::submitButton('Войти', ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>

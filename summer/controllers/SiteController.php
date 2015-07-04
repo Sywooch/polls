@@ -17,6 +17,7 @@ use app\models\Poll;
 use app\models\PollOption;
 use app\models\User;
 use app\models\PollSearch;
+use app\models\ProfileForm;
 use yii\web\ForbiddenHttpException;
 
 class SiteController extends Controller
@@ -175,6 +176,17 @@ class SiteController extends Controller
         } else {
             return $this->render('contact', ['contactForm' => $contactForm]);
         }
+    }
+
+    public function actionProfile()
+    {
+        $profileForm = new ProfileForm();
+
+        if ($profileForm->load(Yii::$app->request->post()) && $profileForm->updateProfile()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('profile', ['profileForm' => $profileForm]);
     }
 
     public function actionAbout()

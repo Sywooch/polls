@@ -16,9 +16,9 @@ $this->title = 'Регистрация';
                 'fieldConfig' => [
                     'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
                     'horizontalCssClasses' => [
-                        'label' => 'col-md-2',
-                        'offset' => 'col-md-offset-2',
-                        'wrapper' => 'col-md-10',
+                        'label' => 'col-sm-2',
+                        'offset' => 'col-sm-offset-2',
+                        'wrapper' => 'col-sm-10',
                         'error' => '',
                         'hint' => '',
                     ]
@@ -28,7 +28,7 @@ $this->title = 'Регистрация';
             <?= $form->field($signupForm, 'email') ?>
             <?= $form->field($signupForm, 'password')->passwordInput() ?>
             <div class="form-group">
-                <div class="col-md-10 col-md-offset-2">
+                <div class="col-sm-10 col-sm-offset-2">
                     <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
