@@ -64,7 +64,7 @@ class PollSearch extends Poll
             $query->andFilterWhere(['like', 'created_at', $this->created_at]);
 
             if ($this['poll_option.name'] !== '' && $this['poll_option.name'] !== null) {
-                $query->joinWith('pollOptions')->andWhere(['like', 'poll_option.name', $this['poll_option.name']]);
+                $query->innerJoinWith('pollOptions')->andWhere(['like', 'poll_option.name', $this['poll_option.name']]);
             }
         }
 

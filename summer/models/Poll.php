@@ -47,6 +47,8 @@ class Poll extends ActiveRecord
     public function toggleVisibility()
     {
         $this->is_results_visible = $this->is_results_visible ? 0 : 1;
+
+        return $this;
     }
 
     public function getPollOptions()

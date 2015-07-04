@@ -17,6 +17,7 @@ use app\models\Poll;
 use app\models\PollOption;
 use app\models\User;
 use app\models\PollSearch;
+use yii\web\ForbiddenHttpException;
 
 class SiteController extends Controller
 {
@@ -67,18 +68,22 @@ class SiteController extends Controller
         $pollsCount = Poll::find()->count();
 
         if (Yii::$app->user->isGuest) {
-            $poll = new Poll();
-            $pollOptions = [new PollOption()];
+            if (Yii::$app->user->can('createPoll')) {
+                $poll = new Poll();
+                $pollOptions = [new PollOption()];
 
-            $signupForm = new SignupForm();
+                $signupForm = new SignupForm();
 
-            return $this->render('indexGuest', [
-                'poll' => $poll,
-                'pollOptions' => $pollOptions,
-                'signupForm' => $signupForm,
-                'usersCount' => $usersCount,
-                'pollsCount' => $pollsCount
-            ]);
+                return $this->render('indexGuest', [
+                    'poll' => $poll,
+                    'pollOptions' => $pollOptions,
+                    'signupForm' => $signupForm,
+                    'usersCount' => $usersCount,
+                    'pollsCount' => $pollsCount
+                ]);
+            } else {
+                throw new ForbiddenHttpException('Вы не можете просматривать эту страницу.');
+            }
         } else {
             $pollSearch = new PollSearch();
             $pollsProvider = $pollSearch->search(Yii::$app->request->queryParams, ['user_id' => Yii::$app->user->identity->id]);
@@ -101,12 +106,8 @@ class SiteController extends Controller
     {
         $signupForm = new SignupForm();
 
-        if ($signupForm->load(Yii::$app->request->post())) {
-            if ($user = $signupForm->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
+        if ($signupForm->load(Yii::$app->request->post()) && $signupForm->signup()) {
+            return $this->goHome();
         }
 
         return $this->render('signup', ['signupForm' => $signupForm]);
@@ -130,11 +131,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Requests password reset.
-     *
-     * @return mixed
-     */
     public function actionRequestPasswordReset()
     {
         $requestPasswordResetForm = new RequestPasswordResetForm();
@@ -152,13 +148,6 @@ class SiteController extends Controller
         return $this->render('requestPasswordReset', ['requestPasswordResetForm' => $requestPasswordResetForm]);
     }
 
-    /**
-     * Resets password.
-     *
-     * @param string $token
-     * @return mixed
-     * @throws BadRequestHttpException
-     */
     public function actionPasswordReset($token)
     {
         try {
