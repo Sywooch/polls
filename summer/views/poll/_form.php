@@ -21,7 +21,7 @@ use app\models\Poll;
     <?php foreach ($pollOptions as $index => $pollOption): ?>
         <?= $form->field($pollOption, "[$index]name", [
             'inputOptions' => ['class' => 'form-control input-sm'],
-            'template' => '<div class="input-group">{input}<div class="input-group-btn"><button type="button" class="btn btn-sm btn-default poll-option-drag-btn"><span class="glyphicon glyphicon-resize-vertical"></span></button><button type="button" class="btn btn-sm btn-default pol-option-remove"><span class="glyphicon glyphicon-remove"></span></button></div></div><div class="help-block"></div>'
+            'template' => '<div class="input-group">{input}<div class="input-group-btn"><button type="button" class="btn btn-sm btn-default poll-option-drag-btn"><span class="glyphicon glyphicon-resize-vertical"></span></button><button type="button" class="btn btn-sm btn-default pol-option-remove"><span class="glyphicon glyphicon-remove"></span></button></div></div><div class="help-block">{error}</div>'
         ])->textInput(['maxlength' => true, 'placeholder' => $pollOption->getAttributeLabel('name')])->label(false) ?>
     <?php endforeach ?>
 </div>

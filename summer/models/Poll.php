@@ -9,6 +9,8 @@ use yii\web\Cookie;
 
 class Poll extends ActiveRecord
 {
+    const MAX_POLL_OPTIONS = 20;
+
     const TYPE_CHECKBOX = 0;
     const TYPE_RADIO = 1;
 
@@ -35,8 +37,7 @@ class Poll extends ActiveRecord
             'title' => 'Текст опроса',
             'type' => 'Тип опроса',
             'is_results_visible' => 'Видимость результатов',
-            'people_count' => 'Количество проголосовавших',
-            'created_at' => 'Дата создания'
+            'people_count' => 'Количество проголосовавших'
         ];
     }
 
@@ -47,8 +48,20 @@ class Poll extends ActiveRecord
             ['title', 'trim'],
             ['title', 'string', 'max' => 25],
             ['type', 'in', 'range' => [static::TYPE_CHECKBOX, static::TYPE_RADIO]],
-            ['is_results_visible', 'boolean']
+            ['is_results_visible', 'boolean'],
+            ['title', 'validateOptionsCount']
         ];
+    }
+
+    public function validateOptionsCount($pollOptions)
+    {
+        if (!$this->hasErrors() && count($pollOptions) > static::MAX_POLL_OPTIONS) {
+            $this->addError('title', 'Вариантов для голосования должно быть не больше ' . static::MAX_POLL_OPTIONS . '.');
+
+            return false;
+        }
+
+        return true;
     }
 
     public function toggleVisibility()

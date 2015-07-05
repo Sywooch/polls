@@ -38,8 +38,8 @@ class PollController extends Controller
                 $pollOptions[] = new PollOption();
             }
 
-            if ($poll->load(Yii::$app->request->post()) && $poll->validate()) {
-                if (Model::loadMultiple($pollOptions, Yii::$app->request->post()) && Model::validateMultiple($pollOptions)) {
+            if (Model::loadMultiple($pollOptions, Yii::$app->request->post()) && Model::validateMultiple($pollOptions)) { //this order for options count validation
+                if ($poll->load(Yii::$app->request->post()) && $poll->validate() && $poll->validateOptionsCount($pollOptions)) { //this order for options count validation
                     if (!Yii::$app->user->isGuest) {
                         $poll->user_id = Yii::$app->user->identity->id;
                     } else {
