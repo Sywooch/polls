@@ -40,10 +40,15 @@ class PollController extends Controller
 
             if ($poll->load(Yii::$app->request->post()) && $poll->validate()) {
                 if (Model::loadMultiple($pollOptions, Yii::$app->request->post()) && Model::validateMultiple($pollOptions)) {
-                    $poll->user_id = !Yii::$app->user->isGuest ?
-                        Yii::$app->user->identity->getId() :
-                        null;
+                    if (!Yii::$app->user->isGuest) {
+                        $poll->user_id = Yii::$app->user->identity->id;
+                    } else {
+                        $poll->generateAuthKey();
+                        $poll->saveAuthKeyInCookies();
+                    }
+
                     $poll->save(false);
+
 
                     foreach ($pollOptions as $position => $pollOption) {
                         $pollOption->poll_id = $poll->id;
@@ -51,6 +56,7 @@ class PollController extends Controller
 
                         $pollOption->save(false);
                     }
+
 
                     return $this->redirect(['view', 'id' => $poll->id]);
                 }
@@ -70,6 +76,10 @@ class PollController extends Controller
         $poll = $this->findPoll($id);
 
         if (Yii::$app->user->can('deletePoll', ['poll' => $poll])) {
+            if (Yii::$app->user->isGuest) {
+                $poll->removeAuthKeyFromCookies();
+            }
+
             $poll->delete();
 
             return $this->redirect(['site/index']);

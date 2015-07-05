@@ -2,6 +2,7 @@
 namespace app\rbac;
 
 use Yii;
+use yii\rbac\Item;
 use yii\rbac\Rule;
 
 class PollResultsVisibleRule extends Rule
@@ -17,9 +18,13 @@ class PollResultsVisibleRule extends Rule
     public function execute($userId, $item, $params)
     {
         if (Yii::$app->user->isGuest) {
-            return isset($params['poll']) ? $params['poll']->is_results_visible === 1 : false;
+            return isset($params['poll']) ?
+                ($params['poll']->is_results_visible === 1 || in_array($params['poll']->auth_key, $params['poll']->getAuthKeys(), true)) :
+                false;
         } else {
-            return isset($params['poll']) ? ($params['poll']->is_results_visible === 1 || $params['poll']->user_id === $userId) : false;
+            return isset($params['poll']) ?
+                ($params['poll']->is_results_visible === 1 || $params['poll']->user_id === $userId) :
+                false;
         }
     }
 }

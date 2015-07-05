@@ -1,11 +1,13 @@
 <?php
 namespace app\rbac;
 
+use Yii;
+use yii\rbac\Item;
 use yii\rbac\Rule;
 
-class AuthorRule extends Rule
+class PollAuthorRule extends Rule
 {
-    public $name = 'isAuthor';
+    public $name = 'isPollAuthor';
 
     /**
      * @param string|integer $userId the user ID.
@@ -15,6 +17,10 @@ class AuthorRule extends Rule
      */
     public function execute($userId, $item, $params)
     {
-        return isset($params['poll']) ? $params['poll']->user_id === $userId : false;
+        if (Yii::$app->user->isGuest) {
+            return isset($params['poll']) ? in_array($params['poll']->auth_key, $params['poll']->getAuthKeys(), true) : false;
+        } else {
+            return isset($params['poll']) ? $params['poll']->user_id === $userId : false;
+        }
     }
 }

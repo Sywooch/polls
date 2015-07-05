@@ -3,7 +3,7 @@ namespace app\commands;
 
 use Yii;
 use yii\console\Controller;
-use app\rbac\AuthorRule;
+use app\rbac\PollAuthorRule;
 use app\rbac\PollResultsVisibleRule;
 use app\rbac\VoteRule;
 
@@ -14,8 +14,8 @@ class RbacController extends Controller
         $auth = Yii::$app->authManager;
 
 
-        $authorRule = new AuthorRule();
-        $auth->add($authorRule);
+        $pollAuthorRule = new PollAuthorRule();
+        $auth->add($pollAuthorRule);
 
         $pollResultsVisibleRule = new PollResultsVisibleRule();
         $auth->add($pollResultsVisibleRule);
@@ -35,7 +35,7 @@ class RbacController extends Controller
 
         $deleteOwnPoll = $auth->createPermission('deleteOwnPoll');
         $deleteOwnPoll->description = 'Delete own poll';
-        $deleteOwnPoll->ruleName = $authorRule->name;
+        $deleteOwnPoll->ruleName = $pollAuthorRule->name;
         $auth->add($deleteOwnPoll);
         $auth->addChild($deleteOwnPoll, $deletePoll);
 
@@ -45,7 +45,7 @@ class RbacController extends Controller
 
         $changeOwnPollVisibility = $auth->createPermission('changeOwnPollVisibility');
         $changeOwnPollVisibility->description = 'Change own poll\'s visibility';
-        $changeOwnPollVisibility->ruleName = $authorRule->name;
+        $changeOwnPollVisibility->ruleName = $pollAuthorRule->name;
         $auth->add($changeOwnPollVisibility);
         $auth->addChild($changeOwnPollVisibility, $changePollVisibility);
 
@@ -70,12 +70,12 @@ class RbacController extends Controller
         $auth->addChild($guest, $createPoll);
         $auth->addChild($guest, $votePoll);
         $auth->addChild($guest, $viewVisiblePollResults);
+        $auth->addChild($guest, $deleteOwnPoll);
+        $auth->addChild($guest, $changeOwnPollVisibility);
 
         $user = $auth->createRole('user');
         $auth->add($user);
         $auth->addChild($user, $guest);
-        $auth->addChild($user, $deleteOwnPoll);
-        $auth->addChild($user, $changeOwnPollVisibility);
 
         $admin = $auth->createRole('admin');
         $auth->add($admin);

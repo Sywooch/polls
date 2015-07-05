@@ -48,8 +48,13 @@ class SignupForm extends Model
             $user->generateAuthKey();
 
             if ($user->save()) {
+                $poll = new Poll();
+                Poll::updateAll(['user_id' => $user->id, 'auth_key' => null], ['in', 'auth_key', $poll->getAuthKeys()]);
+                $poll->clearAuthKeys();
+
                 Yii::$app->authManager->assign(Yii::$app->authManager->getRole('user'), $user->id);
-                Yii::$app->getUser()->login($user);
+
+                Yii::$app->getUser()->login($user, Yii::$app->params['loginSessionTime']);
 
                 return $user;
             }

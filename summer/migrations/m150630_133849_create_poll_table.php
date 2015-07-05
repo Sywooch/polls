@@ -9,6 +9,7 @@ class m150630_133849_create_poll_table extends Migration
         $this->createTable('poll', [
             'id' => Schema::TYPE_PK,
             'user_id' => Schema::TYPE_INTEGER,
+            'auth_key' => Schema::TYPE_STRING . '(32) UNIQUE',
             'title' => Schema::TYPE_STRING . '(255) NOT NULL',
             'type' => Schema::TYPE_INTEGER . ' NOT NULL',
             'is_results_visible' => Schema::TYPE_INTEGER . ' NOT NULL',

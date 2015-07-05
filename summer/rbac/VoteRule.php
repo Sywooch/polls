@@ -2,6 +2,7 @@
 namespace app\rbac;
 
 use Yii;
+use yii\rbac\Item;
 use yii\rbac\Rule;
 
 class VoteRule extends Rule
