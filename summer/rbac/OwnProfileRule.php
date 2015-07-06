@@ -4,9 +4,9 @@ namespace app\rbac;
 use yii\rbac\Item;
 use yii\rbac\Rule;
 
-class VoteRule extends Rule
+class OwnProfileRule extends Rule
 {
-    public $name = 'canVote';
+    public $name = 'isOwnProfile';
 
     /**
      * @param string|integer $userId the user ID.
@@ -16,6 +16,6 @@ class VoteRule extends Rule
      */
     public function execute($userId, $item, $params)
     {
-        return isset($params['pollVote']) ? $params['pollVote']->validateUser() : false;
+        return isset($params['id']) ? $params['id'] === $userId : false;
     }
 }

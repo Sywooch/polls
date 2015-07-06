@@ -75,3 +75,13 @@ a.list-group-item.desc, a.list-group-item.asc {
 .poll-title, .poll-option-name {
     word-wrap: break-word;
 }
+
+.nav-tabs {
+    margin-bottom: 10px;
+}
+
+.popover {
+    font-size: 12px;
+    max-width: 400px;
+    text-align: center;
+}

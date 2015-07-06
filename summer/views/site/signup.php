@@ -25,13 +25,13 @@ $this->title = 'Регистрация';
                 ]
             ]) ?>
 
-            <?= $form->field($signupForm, 'email') ?>
-            <?= $form->field($signupForm, 'password')->passwordInput() ?>
-            <div class="form-group">
-                <div class="col-sm-10 col-sm-offset-2">
-                    <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
+                <?= $form->field($signupForm, 'email') ?>
+                <?= $form->field($signupForm, 'password')->passwordInput() ?>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
+                    </div>
                 </div>
-            </div>
 
             <?php ActiveForm::end(); ?>
         </div>

@@ -6,6 +6,7 @@ use yii\console\Controller;
 use app\rbac\PollAuthorRule;
 use app\rbac\PollResultsVisibleRule;
 use app\rbac\VoteRule;
+use app\rbac\OwnProfileRule;
 
 class RbacController extends Controller
 {
@@ -23,6 +24,9 @@ class RbacController extends Controller
         $voteRule = new VoteRule();
         $auth->add($voteRule);
 
+        $ownProfileRule = new OwnProfileRule();
+        $auth->add($ownProfileRule);
+
 
 
         $createPoll = $auth->createPermission('createPoll');
@@ -30,7 +34,7 @@ class RbacController extends Controller
         $auth->add($createPoll);
 
         $deletePoll = $auth->createPermission('deletePoll');
-        $deletePoll->description = 'Delete the poll';
+        $deletePoll->description = 'Delete any poll';
         $auth->add($deletePoll);
 
         $deleteOwnPoll = $auth->createPermission('deleteOwnPoll');
@@ -40,7 +44,7 @@ class RbacController extends Controller
         $auth->addChild($deleteOwnPoll, $deletePoll);
 
         $changePollVisibility = $auth->createPermission('changePollVisibility');
-        $changePollVisibility->description = 'Change the poll\'s visibility';
+        $changePollVisibility->description = 'Change any poll\'s visibility';
         $auth->add($changePollVisibility);
 
         $changeOwnPollVisibility = $auth->createPermission('changeOwnPollVisibility');
@@ -64,6 +68,32 @@ class RbacController extends Controller
         $auth->add($viewVisiblePollResults);
         $auth->addChild($viewVisiblePollResults, $viewPollResults);
 
+        $viewAdminPanel = $auth->createPermission('viewAdminPanel');
+        $viewAdminPanel->description = 'View administrator panel';
+        $auth->add($viewAdminPanel);
+
+        $useUsersControlPanel = $auth->createPermission('useUsersControlPanel');
+        $useUsersControlPanel->description = 'Use users control panel';
+        $auth->add($useUsersControlPanel);
+
+        $usePollsControlPanel = $auth->createPermission('usePollsControlPanel');
+        $usePollsControlPanel->description = 'Use polls control panel';
+        $auth->add($usePollsControlPanel);
+
+        $viewProfile = $auth->createPermission('viewProfile');
+        $viewProfile->description = 'View any profile';
+        $auth->add($viewProfile);
+
+        $viewOwnProfile = $auth->createPermission('viewOwnProfile');
+        $viewOwnProfile->description = 'View own profile';
+        $viewOwnProfile->ruleName = $ownProfileRule->name;
+        $auth->add($viewOwnProfile);
+        $auth->addChild($viewOwnProfile, $viewProfile);
+
+        $deleteUser = $auth->createPermission('deleteUser');
+        $deleteUser->description = 'Delete any user';
+        $auth->add($deleteUser);
+
 
         $guest = $auth->createRole('guest');
         $auth->add($guest);
@@ -76,12 +106,18 @@ class RbacController extends Controller
         $user = $auth->createRole('user');
         $auth->add($user);
         $auth->addChild($user, $guest);
+        $auth->addChild($user, $viewOwnProfile);
 
         $admin = $auth->createRole('admin');
         $auth->add($admin);
         $auth->addChild($admin, $user);
+        $auth->addChild($admin, $viewPollResults);
         $auth->addChild($admin, $deletePoll);
         $auth->addChild($admin, $changePollVisibility);
-        $auth->addChild($admin, $viewPollResults);
+        $auth->addChild($admin, $viewAdminPanel);
+        $auth->addChild($admin, $useUsersControlPanel);
+        $auth->addChild($admin, $usePollsControlPanel);
+        $auth->addChild($admin, $viewProfile);
+        $auth->addChild($admin, $deleteUser);
     }
 }

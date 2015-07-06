@@ -23,16 +23,15 @@ $this->title = 'Обратная связь';
 
         <?php $form = ActiveForm::begin() ?>
 
-        <?= $form->field($contactForm, 'email') ?>
-        <?= $form->field($contactForm, 'subject') ?>
-        <?= $form->field($contactForm, 'body')->textArea(['rows' => 6]) ?>
-        <?= $form->field($contactForm, 'captcha')->widget(Captcha::className(), [
-            'template' => '<div class="row"><div class="col-xs-5 col-sm-3 col-md-2">{image}</div><div class="col-xs-7 col-sm-9 col-md-10">{input}</div></div>',
-        ]) ?>
-        <div class="form-group">
-            <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-        </div>
-
+            <?= $form->field($contactForm, 'email') ?>
+            <?= $form->field($contactForm, 'subject') ?>
+            <?= $form->field($contactForm, 'body')->textArea(['rows' => 6]) ?>
+            <?= $form->field($contactForm, 'captcha')->widget(Captcha::className(), [
+                'template' => '<div class="row"><div class="col-xs-5 col-sm-3 col-md-2">{image}</div><div class="col-xs-7 col-sm-9 col-md-10">{input}</div></div>',
+            ]) ?>
+            <div class="form-group">
+                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+            </div>
 
         <?php ActiveForm::end(); ?>
     </div>

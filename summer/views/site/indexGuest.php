@@ -29,11 +29,11 @@ $this->title = Yii::$app->name;
                     'action' => ['site/signup']
                 ]) ?>
 
-                <?= $form->field($signupForm, 'email') ?>
-                <?= $form->field($signupForm, 'password')->passwordInput() ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
-                </div>
+                    <?= $form->field($signupForm, 'email') ?>
+                    <?= $form->field($signupForm, 'password')->passwordInput() ?>
+                    <div class="form-group">
+                        <?= Html::submitButton('Зарегистрироваться', ['class' => 'btn btn-primary']) ?>
+                    </div>
 
                 <?php ActiveForm::end(); ?>
             </div>

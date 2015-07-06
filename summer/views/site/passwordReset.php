@@ -26,12 +26,12 @@ $this->title = 'Сброс пароля';
                 ]
             ]) ?>
 
-            <?= $form->field($passwordResetForm, 'password')->passwordInput()->hint('Введите новый пароль.') ?>
-            <div class="form-group">
-                <div class="col-sm-10 col-sm-offset-2">
-                    <?= Html::submitButton('Сбросить пароль', ['class' => 'btn btn-success']) ?>
+                <?= $form->field($passwordResetForm, 'password')->passwordInput()->hint('Введите новый пароль.') ?>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <?= Html::submitButton('Сбросить пароль', ['class' => 'btn btn-success']) ?>
+                    </div>
                 </div>
-            </div>
 
             <?php ActiveForm::end(); ?>
         </div>

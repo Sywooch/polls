@@ -13,7 +13,7 @@ $this->title = Yii::$app->name;
 
         <?php if (count($polls) !== 0): ?>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-striped">
                     <tr>
                         <th>Название опроса</th>
                         <th>Количество проголосовавших</th>
@@ -50,13 +50,14 @@ $this->title = Yii::$app->name;
             </div>
             <div class="panel-body">
                 <?php $form = ActiveForm::begin(['method' => 'GET', 'options' => ['data-pjax' => '0']]) ?>
-                <?= $form->field($pollSearch, 'title') ?>
-                <?= $form->field($pollSearch, 'poll_option.name') ?>
-                <?= $form->field($pollSearch, 'created_at') ?>
+                    <?= $form->field($pollSearch, 'title')->textInput(['placeholder' => $pollSearch->getAttributeLabel('title')])->label(false) ?>
+                    <?= $form->field($pollSearch, 'people_count')->textInput(['placeholder' => $pollSearch->getAttributeLabel('people_count')])->label(false) ?>
+                    <?= $form->field($pollSearch, 'pollOptionName')->textInput(['placeholder' => $pollSearch->getAttributeLabel('pollOptionName')])->label(false) ?>
+                    <?= $form->field($pollSearch, 'created_at')->textInput(['placeholder' => $pollSearch->getAttributeLabel('created_at')])->label(false) ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
-                </div>
+                    <div class="form-group">
+                        <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
+                    </div>
                 <?php ActiveForm::end() ?>
             </div>
         </div>

@@ -2,9 +2,8 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = 'Изменение профиля';
+$this->title = 'Изменение профиля ' . ($id !== Yii::$app->user->identity->id ? (' ' . $profileForm->email) : '');
 ?>
-
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="well well-sm">
@@ -27,13 +26,13 @@ $this->title = 'Изменение профиля';
             ]) ?>
 
 
-            <?= $form->field($profileForm, 'email')->textInput() ?>
-            <?= $form->field($profileForm, 'password')->passwordInput()->hint('Оставьте поле пустым, если не хотите менять ваш пароль.') ?>
-            <div class="form-group">
-                <div class="col-sm-10 col-sm-offset-2">
-                    <?= Html::submitButton('Изменить профиль', ['class' => 'btn btn-primary']) ?>
+                <?= $form->field($profileForm, 'email')->textInput() ?>
+                <?= $form->field($profileForm, 'password')->passwordInput()->hint('Оставьте поле пустым, если не хотите менять пароль.') ?>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <?= Html::submitButton('Изменить профиль', ['class' => 'btn btn-primary']) ?>
+                    </div>
                 </div>
-            </div>
 
             <?php ActiveForm::end(); ?>
         </div>

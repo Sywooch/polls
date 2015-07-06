@@ -43,6 +43,16 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'Идентификатор',
+            'email' => 'Email',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения'
+        ];
+    }
+
     public static function findIdentity($id)
     {
         return static::findOne($id);

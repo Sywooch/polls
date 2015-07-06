@@ -11,12 +11,12 @@ class ProfileForm extends Model
 
     protected $user;
 
-    public function init()
+    public function __construct($id, $config = [])
     {
-        parent::init();
-
-        $this->user = User::findOne(Yii::$app->user->identity->id);
+        $this->user = User::findOne($id);
         $this->email = $this->user->email;
+
+        parent::__construct($config);
     }
 
     public function rules()

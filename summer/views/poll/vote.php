@@ -14,16 +14,16 @@ $this->title = 'Опрос "' . $pollVote->title . '""';
 
             <?php $form = ActiveForm::begin(['id' => 'vote-poll']) ?>
 
-            <?php if ($pollVote instanceof PollVoteCheckbox): ?>
-                <?= $form->field($pollVote, 'voteResults')->checkboxList($pollVote->formattedOptions)->label(false) ?>
-            <?php else: ?>
-                <?= $form->field($pollVote, 'voteResults')->radioList($pollVote->formattedOptions)->label(false) ?>
-            <?php endif ?>
+                <?php if ($pollVote instanceof PollVoteCheckbox): ?>
+                    <?= $form->field($pollVote, 'voteResults')->checkboxList($pollVote->formattedOptions)->label(false) ?>
+                <?php else: ?>
+                    <?= $form->field($pollVote, 'voteResults')->radioList($pollVote->formattedOptions)->label(false) ?>
+                <?php endif ?>
 
-            <div class="form-group">
-                <?= Html::submitButton('Проголосовать', ['class' => 'btn btn-sm btn-success']) ?>
-                <?= Html::a('Перейти к результатам', ['poll/view', 'id' => $pollVote->id], ['class' => 'btn btn-sm btn-primary']) ?>
-            </div>
+                <div class="form-group">
+                    <?= Html::submitButton('Проголосовать', ['class' => 'btn btn-sm btn-success']) ?>
+                    <?= Html::a('Перейти к результатам', ['poll/view', 'id' => $pollVote->id], ['class' => 'btn btn-sm btn-primary']) ?>
+                </div>
 
             <?php ActiveForm::end(); ?>
         </div>

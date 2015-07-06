@@ -42,10 +42,14 @@ AppAsset::register($this);
                 $navItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
                 $navItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
             } else {
+                if (Yii::$app->user->can('viewAdminPanel')) {
+                    $navItems[] = ['label' => 'Администрирование', 'url' => ['/admin/index'], 'active' => Yii::$app->controller->id === 'admin'];
+                }
+
                 $navItems[] = [
                     'label' => Html::encode(Yii::$app->user->identity->email),
                     'items' => [
-                        ['label' => 'Изменить профиль', 'url' => ['/site/profile']],
+                        ['label' => 'Изменить профиль', 'url' => ['/user/profile']],
                         ['label' => 'Выход', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']]
                     ]
                 ];
@@ -61,9 +65,6 @@ AppAsset::register($this);
     </header>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
         <?= $content ?>
     </div>
 

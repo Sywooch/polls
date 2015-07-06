@@ -25,12 +25,12 @@ $this->title = 'Сброс пароля';
                 ]
             ]) ?>
 
-            <?= $form->field($requestPasswordResetForm, 'email')->hint('Ссылка для сброса пароля будет отправлена на этот адрес.') ?>
-            <div class="form-group">
-                <div class="col-sm-10 col-sm-offset-2">
-                    <?= Html::submitButton('Отправить ссылку для сброса пароля', ['class' => 'btn btn-primary']) ?>
+                <?= $form->field($requestPasswordResetForm, 'email')->hint('Ссылка для сброса пароля будет отправлена на этот адрес.') ?>
+                <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <?= Html::submitButton('Отправить ссылку для сброса пароля', ['class' => 'btn btn-primary']) ?>
+                    </div>
                 </div>
-            </div>
 
             <?php ActiveForm::end(); ?>
 

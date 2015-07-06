@@ -11,7 +11,9 @@ return [
         'request-password-reset' => 'site/request-password-reset',
         'password-reset' => 'site/password-reset',
         'about' => 'site/about',
-        'profile' => 'site/profile',
+        'profile' => 'user/profile',
+        'profile/<id:\d+>' => 'user/profile',
+        'profile/<id:\d+>/delete' => 'user/delete',
         'contact' => 'site/contact',
         'captcha' => 'site/captcha',
         'poll/my-polls' => 'poll/index',
@@ -19,6 +21,9 @@ return [
         'poll/<id:\d+>/delete' => 'poll/delete',
         'poll/<id:\d+>' => 'poll/view',
         'poll/<id:\d+>/vote' => 'poll/vote',
-        'poll/<id:\d+>/toggle-visibility' => 'poll/toggle-visibility'
+        'poll/<id:\d+>/toggle-visibility' => 'poll/toggle-visibility',
+        'admin' => 'admin/index',
+        'admin/user' => 'admin/users-control',
+        'admin/poll' => 'admin/polls-control'
     ]
 ];

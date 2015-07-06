@@ -34,10 +34,12 @@ class Poll extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'title' => 'Текст опроса',
+            'id' => 'Идентификатор',
+            'title' => 'Название опроса',
             'type' => 'Тип опроса',
             'is_results_visible' => 'Видимость результатов',
-            'people_count' => 'Количество проголосовавших'
+            'people_count' => 'Проголосовавших',
+            'created_at' => 'Дата создания',
         ];
     }
 
