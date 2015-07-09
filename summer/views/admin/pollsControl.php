@@ -26,7 +26,7 @@ $this->title = 'Панель администрирования - Управле
             [
                 'attribute' => 'userEmail',
                 'value' => function ($model, $key, $index, $column) {
-                    return $model->user->email;
+                    return $model->user !== null ? $model->user->email : 'Гость';
                 }
             ],
             'title',

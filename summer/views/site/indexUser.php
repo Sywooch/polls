@@ -46,7 +46,7 @@ $this->title = Yii::$app->name;
     <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h1 class="panel-title text-center">Поиск опроса</h1>
+                <h1 class="panel-title text-center">Поиск вашего опроса</h1>
             </div>
             <div class="panel-body">
                 <?php $form = ActiveForm::begin(['method' => 'GET', 'options' => ['data-pjax' => '0']]) ?>
