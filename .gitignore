@@ -1,5 +1,5 @@
 .idea
 access.log
 error.log
-summer/vendor
-!summer/vendor/.empty
+polls/vendor
+!polls/vendor/.empty
