@@ -47,7 +47,7 @@ AppAsset::register($this);
                 }
 
                 $navItems[] = [
-                    'label' => Html::encode(Yii::$app->user->identity->email),
+                    'label' => Yii::$app->user->identity->email,
                     'items' => [
                         ['label' => 'Изменить профиль', 'url' => ['/user/profile']],
                         ['label' => 'Выход', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']]

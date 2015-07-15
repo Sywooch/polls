@@ -15,9 +15,13 @@ $this->title = 'Опрос "' . $pollVote->title . '""';
             <?php $form = ActiveForm::begin(['id' => 'vote-poll']) ?>
 
                 <?php if ($pollVote instanceof PollVoteCheckbox): ?>
-                    <?= $form->field($pollVote, 'voteResults')->checkboxList($pollVote->formattedOptions)->label(false) ?>
+                    <?= $form->field($pollVote, 'voteResults')->checkboxList($pollVote->formattedOptions, ['item' => function ($index, $label, $name, $checked, $value) {
+                        return '<div class="checkbox">' . Html::checkbox($name, $checked, ['label' => Html::encode($label), 'value' => $value]) . '</div>';
+                    }])->label(false) ?>
                 <?php else: ?>
-                    <?= $form->field($pollVote, 'voteResults')->radioList($pollVote->formattedOptions)->label(false) ?>
+                    <?= $form->field($pollVote, 'voteResults')->radioList($pollVote->formattedOptions, ['item' => function ($index, $label, $name, $checked, $value) {
+                        return '<div class="radio">' . Html::radio($name, $checked, ['label' => Html::encode($label), 'value' => $value]) . '</div>';
+                    }])->label(false) ?>
                 <?php endif ?>
 
                 <div class="form-group">

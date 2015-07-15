@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\Html;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -58,8 +59,8 @@ class ContactForm extends Model
             Yii::$app->mailer->compose()
                 ->setTo($email)
                 ->setFrom($this->email)
-                ->setSubject($this->subject)
-                ->setTextBody($this->body)
+                ->setSubject(Html::encode($this->subject))
+                ->setTextBody(Html::encode($this->body))
                 ->send();
 
             return true;

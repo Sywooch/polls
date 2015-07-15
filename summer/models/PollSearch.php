@@ -73,13 +73,15 @@ class PollSearch extends Poll
                         ],
                         'type',
                         'is_results_visible',
-                        'pollOptionName',
                         'pollOptionName' => [
                             'asc' => ['pollOptionNames' => SORT_ASC],
                             'desc' => ['pollOptionNames' => SORT_DESC]
                         ],
                         'title',
-                        'people_count',
+                        'people_count' => [
+                            'asc' => ['poll.people_count' => SORT_ASC],
+                            'desc' => ['poll.people_count' => SORT_DESC]
+                        ],
                         'created_at' => [
                             'asc' => ['poll.created_at' => SORT_ASC],
                             'desc' => ['poll.created_at' => SORT_DESC]
@@ -131,7 +133,7 @@ class PollSearch extends Poll
 
 
             $query->andFilterWhere(['like', 'title', $this->title]);
-            $query->andFilterWhere(['like', 'people_count', $this->people_count]);
+            $query->andFilterWhere(['like', 'poll.people_count', $this->people_count]);
             $query->andFilterWhere(['like', 'poll.created_at', $this->created_at]);
 
             if ($this->pollOptionName !== '' && $this->pollOptionName !== null) {
