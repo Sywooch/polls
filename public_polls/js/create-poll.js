@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    'use strict';
+
     function getNewOptionIndex(textWithIds) {
         var ids = [];
         var regExp = /polloption-(\d+)-name/g;
@@ -13,7 +15,7 @@ $(document).ready(function() {
 
     function buildAndAppendPollOption(id, $pollOptions) {
         var $wrapperFormGroup = $('<div class="form-group field-polloption-' + id + '-name required">').appendTo($pollOptions);
-        var $wrapperInputGroup =$('<div class="input-group">').appendTo($wrapperFormGroup);
+        var $wrapperInputGroup = $('<div class="input-group">').appendTo($wrapperFormGroup);
 
         $wrapperInputGroup.append('<input type="text" maxlength="45" id="polloption-' + id + '-name" class="form-control input-sm" name="PollOption[' + id + '][name]" placeholder="Текст варианта">');
         $wrapperInputGroup.append('<div class="input-group-btn"><button type="button" class="btn btn-sm btn-default poll-option-drag-btn"><span class="glyphicon glyphicon-resize-vertical"></span></button><button type="button" class="btn btn-sm btn-default pol-option-remove"><span class="glyphicon glyphicon-remove"></span></button></div>');
@@ -26,10 +28,10 @@ $(document).ready(function() {
             "container": ".field-polloption-" + id + "-name",
             "input": "#polloption-" + id + "-name",
             "validate": function (attribute, value, messages, deferred, $form) {
-                yii.validation.required(value, messages, {
+                window.yii.validation.required(value, messages, {
                     "message": "Необходимо заполнить «Текст варианта»."
                 });
-                yii.validation.string(value, messages, {
+                window.yii.validation.string(value, messages, {
                     "message": "Значение «Текст варианта» должно быть строкой.",
                     "max": 60,
                     "tooLong": "Значение «Текст варианта» должно содержать максимум 45 символа.",
@@ -50,27 +52,7 @@ $(document).ready(function() {
             tolerance: 'pointer', //anti-bug with moving to the first and the last positions
             cancel: '',
             axis: 'y',
-            containment: 'parent',
-            start: function(e, ui) {
-                $(this).attr('data-prev-index', ui.item.index());
-            },
-            stop: function(e, ui) {
-                var $startIndex = $(this).data('prevIndex');
-                var $endIndex = ui.item.index();
-
-                var $direction;
-                if ($endIndex > $startIndex) {
-                    $direction = 'to-bottom';
-                } else if ($startIndex > $endIndex) {
-                    $direction = 'to-top';
-                } else { //position didn't change
-                    $direction = null;
-                }
-
-                if ($direction !== null) {
-                    recalculatePollOptionsIds(ui.item, $endIndex, $direction);
-                }
-            }
+            containment: 'parent'
         });
 
         $pollOptions.on('click', '.pol-option-remove', function () {
